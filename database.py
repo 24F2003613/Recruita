@@ -86,7 +86,7 @@ def create_recruita_core_tables():
                 INSERT INTO admins(name, email, password_hash)
                 VALUES (?, ?, ?)
                 """,
-                ("Placement Officer", "placement.officer@vitbhopal.ac.in", "Recruita@123"),
+                ("Placement Officer", "placement.officer@iitm.ac.in", "Recruita@123"),
             )
 
         company_table_columns = [
