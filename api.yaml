@@ -1,0 +1,130 @@
+paths:
+   /:
+      get:
+         descp: Open authentication page.
+
+   /login:
+      post:
+         descp: Authenticate user and start session.
+
+   /register:
+      post:
+         descp: Register student or company account.
+
+   /logout:
+      post:
+         descp: Logout current user.
+
+   /admin/dashboard:
+      get:
+         descp: Admin dashboard overview.
+
+   /admin/profile:
+      get:
+         descp: Admin profile page.
+
+   /admin/approve-company/{company_id}:
+      post:
+         descp: Approve or reject company.
+         parameters:
+            - in: path
+              name: company_id
+              required: true
+              schema: { type: integer }
+
+   /admin/approve-drive/{drive_id}:
+      post:
+         descp: Approve placement drive.
+         parameters:
+            - in: path
+              name: drive_id
+              required: true
+              schema: { type: integer }
+
+   /admin/reject-drive/{drive_id}:
+      post:
+         descp: Reject/close placement drive.
+         parameters:
+            - in: path
+              name: drive_id
+              required: true
+              schema: { type: integer }
+
+   /admin/students:
+      get:
+         descp: View/search students.
+
+   /admin/companies:
+      get:
+         descp: View/search companies.
+
+   /admin/drives:
+      get:
+         descp: View all drives.
+
+   /admin/applications:
+      get:
+         descp: View all applications.
+
+   /company/dashboard:
+      get:
+         descp: Company dashboard page.
+
+   /company/profile:
+      get:
+         descp: Company profile page.
+
+   /company/edit-profile:
+      get:
+         descp: Open company profile edit form.
+      post:
+         descp: Save company profile changes.
+
+   /company/create-drive:
+      post:
+         descp: Create new placement drive.
+
+   /company/edit-drive/{drive_id}:
+      get:
+         descp: Open drive edit form.
+      post:
+         descp: Save drive changes.
+
+   /company/close-drive/{drive_id}:
+      post:
+         descp: Close selected drive.
+
+   /company/view-applications/{drive_id}:
+      get:
+         descp: View applications for drive.
+
+   /company/update-application-status/{application_id}:
+      post:
+         descp: Update application status.
+
+   /student/dashboard:
+      get:
+         descp: Student dashboard page.
+
+   /student/profile:
+      get:
+         descp: Student profile page.
+
+   /student/edit-profile:
+      get:
+         descp: Open student profile edit form.
+      post:
+         descp: Save student profile changes.
+
+   /student/apply-drive/{drive_id}:
+      post:
+         descp: Apply to selected drive.
+         parameters:
+            - in: path
+              name: drive_id
+              required: true
+              schema: { type: integer }
+
+   /student/application-history:
+      get:
+         descp: View student application history.
