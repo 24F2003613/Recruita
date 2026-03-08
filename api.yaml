@@ -26,29 +26,14 @@ paths:
    /admin/approve-company/{company_id}:
       post:
          descp: Approve or reject company.
-         parameters:
-            - in: path
-              name: company_id
-              required: true
-              schema: { type: integer }
 
    /admin/approve-drive/{drive_id}:
       post:
          descp: Approve placement drive.
-         parameters:
-            - in: path
-              name: drive_id
-              required: true
-              schema: { type: integer }
 
    /admin/reject-drive/{drive_id}:
       post:
          descp: Reject/close placement drive.
-         parameters:
-            - in: path
-              name: drive_id
-              required: true
-              schema: { type: integer }
 
    /admin/students:
       get:
@@ -119,11 +104,6 @@ paths:
    /student/apply-drive/{drive_id}:
       post:
          descp: Apply to selected drive.
-         parameters:
-            - in: path
-              name: drive_id
-              required: true
-              schema: { type: integer }
 
    /student/application-history:
       get:
