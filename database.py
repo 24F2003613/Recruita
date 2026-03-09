@@ -1,16 +1,11 @@
 import sqlite3
-
-
 DATABASE_PATH = "recruita_portal.db"
-
-
 
 def connect_recruita_database():
       recruita_db_connection = sqlite3.connect(DATABASE_PATH)
       recruita_db_connection.row_factory = sqlite3.Row
       recruita_db_connection.execute("PRAGMA foreign_keys = ON")
       return recruita_db_connection
-
 
 
 def create_recruita_core_tables():
@@ -22,7 +17,7 @@ def create_recruita_core_tables():
                         admin_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
                         email TEXT NOT NULL UNIQUE,
-                        password_hash TEXT NOT NULL
+                        password TEXT NOT NULL
                   );
 
 
@@ -36,7 +31,7 @@ def create_recruita_core_tables():
                         resume TEXT NOT NULL DEFAULT '',
                         phone TEXT,
                         email TEXT NOT NULL UNIQUE,
-                        password_hash TEXT NOT NULL,
+                        password TEXT NOT NULL,
                         is_active INTEGER NOT NULL DEFAULT 1
                   );
 
@@ -48,7 +43,7 @@ def create_recruita_core_tables():
                         hr_name TEXT NOT NULL,
                         phone TEXT NOT NULL DEFAULT '',
                         email TEXT NOT NULL UNIQUE,
-                        password_hash TEXT NOT NULL DEFAULT '',
+                        password TEXT NOT NULL DEFAULT '',
                         approval_status TEXT NOT NULL DEFAULT 'Pending'
                               CHECK(approval_status IN ('Pending', 'Approved', 'Rejected')),
                         is_active INTEGER NOT NULL DEFAULT 1
@@ -92,50 +87,10 @@ def create_recruita_core_tables():
             if not existing_admin_account:
                   recruita_db_connection.execute(
                         """
-                        INSERT INTO admins(name, email, password_hash)
+                        INSERT INTO admins(name, email, password)
                         VALUES (?, ?, ?)
                         """,
                         ("Placement Officer", "placement.officer@iitm.ac.in", "Recruita@123"),
-                  )
-
-
-            company_column_names = [
-                  table_column["name"]
-                  for table_column in recruita_db_connection.execute("PRAGMA table_info(companies)").fetchall()
-            ]
-            student_column_names = [
-                  table_column["name"]
-                  for table_column in recruita_db_connection.execute("PRAGMA table_info(students)").fetchall()
-            ]
-
-
-            if "college" not in student_column_names:
-                  recruita_db_connection.execute(
-                        "ALTER TABLE students ADD COLUMN college TEXT NOT NULL DEFAULT ''"
-                  )
-            if "gpa" not in student_column_names:
-                  recruita_db_connection.execute(
-                        "ALTER TABLE students ADD COLUMN gpa TEXT NOT NULL DEFAULT ''"
-                  )
-            if "resume" not in student_column_names:
-                  recruita_db_connection.execute(
-                        "ALTER TABLE students ADD COLUMN resume TEXT NOT NULL DEFAULT ''"
-                  )
-            if "phone" not in student_column_names:
-                  recruita_db_connection.execute("ALTER TABLE students ADD COLUMN phone TEXT")
-
-
-            if "password_hash" not in company_column_names:
-                  recruita_db_connection.execute(
-                        "ALTER TABLE companies ADD COLUMN password_hash TEXT NOT NULL DEFAULT ''"
-                  )
-            if "website" not in company_column_names:
-                  recruita_db_connection.execute(
-                        "ALTER TABLE companies ADD COLUMN website TEXT NOT NULL DEFAULT ''"
-                  )
-            if "phone" not in company_column_names:
-                  recruita_db_connection.execute(
-                        "ALTER TABLE companies ADD COLUMN phone TEXT NOT NULL DEFAULT ''"
                   )
 
 

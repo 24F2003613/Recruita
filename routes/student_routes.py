@@ -70,6 +70,7 @@ def register_student_routes(app):
 
             if request.method == "POST":
                   full_name = request.form.get("full_name", "").strip()
+                  roll_number = request.form.get("roll_number", "").strip().upper()
                   college = request.form.get("college", "").strip()
                   department = request.form.get("department", "").strip()
                   gpa = request.form.get("gpa", "").strip()
@@ -78,7 +79,7 @@ def register_student_routes(app):
                   email = request.form.get("email", "").strip()
 
 
-                  if not full_name or not college or not department or not gpa or not resume or not email:
+                  if not full_name or not roll_number or not college or not department or not gpa or not resume or not email:
                         flash("All profile fields are required.", "danger")
                         return redirect(url_for("student_edit_profile"))
 
@@ -88,6 +89,7 @@ def register_student_routes(app):
                               student_id,
                               {
                                     "full_name": full_name,
+                                    "roll_number": roll_number,
                                     "college": college,
                                     "department": department,
                                     "gpa": gpa,
@@ -99,7 +101,7 @@ def register_student_routes(app):
                         flash("Profile updated successfully.", "success")
                         return redirect(url_for("student_dashboard"))
                   except sqlite3.IntegrityError:
-                        flash("Email is already used by another account.", "danger")
+                        flash("Email or roll number is already used by another account.", "danger")
                         return redirect(url_for("student_edit_profile"))
                   except Exception as db_error:
                         print("Error while updating student profile:", db_error)

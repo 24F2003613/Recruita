@@ -9,7 +9,7 @@ Recruita is a Flask + SQLite based placement portal with three roles:
 
 1. Open terminal in project folder:
    ```bash
-   cd Recruita
+   cd RECRUITA
    ```
 
 2. Create and activate virtual environment:

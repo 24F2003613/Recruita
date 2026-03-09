@@ -55,7 +55,7 @@ def register_auth_routes(app):
 
             try:
                   admin_account = fetch_admin_login_account(login_identifier)
-                  if admin_account and admin_account["password_hash"] == login_password:
+                  if admin_account and admin_account["password"] == login_password:
                         session.clear()
                         session["user_role"] = "admin"
                         session["role_id"] = admin_account["admin_id"]
@@ -64,7 +64,7 @@ def register_auth_routes(app):
 
 
                   company_account = fetch_company_login_account(login_identifier)
-                  if company_account and company_account["password_hash"] == login_password:
+                  if company_account and company_account["password"] == login_password:
                         if company_account["is_active"] == 0:
                               flash("Company account is inactive. Contact placement cell.", "danger")
                               return redirect(url_for("home", view="login"))
@@ -84,7 +84,7 @@ def register_auth_routes(app):
 
 
                   student_account = fetch_student_login_account(login_identifier)
-                  if student_account and student_account["password_hash"] == login_password:
+                  if student_account and student_account["password"] == login_password:
                         if student_account["is_active"] == 0:
                               flash("Student account is inactive. Contact placement cell.", "danger")
                               return redirect(url_for("home", view="login"))
@@ -125,6 +125,7 @@ def register_auth_routes(app):
             try:
                   if registration_role == "student":
                         student_full_name = request.form.get("student_full_name", "").strip()
+                        student_roll_number = request.form.get("student_roll_number", "").strip().upper()
                         student_college = request.form.get("student_college", "").strip()
                         student_department = request.form.get("student_department", "").strip()
                         student_gpa = request.form.get("student_gpa", "").strip()
@@ -134,6 +135,7 @@ def register_auth_routes(app):
 
                         if (
                               not student_full_name
+                              or not student_roll_number
                               or not student_college
                               or not student_department
                               or not student_gpa
@@ -146,7 +148,7 @@ def register_auth_routes(app):
                         create_student_account(
                               {
                                     "full_name": student_full_name,
-                                    "roll_number": account_email.split("@")[0].upper(),
+                                    "roll_number": student_roll_number,
                                     "college": student_college,
                                     "department": student_department,
                                     "gpa": student_gpa,
@@ -184,7 +186,7 @@ def register_auth_routes(app):
                   flash("Company registered. Login allowed only after admin approval.", "warning")
                   return redirect(url_for("home", view="login"))
             except sqlite3.IntegrityError:
-                  flash("Email already exists.", "danger")
+                  flash("Email or roll number already exists.", "danger")
                   return redirect(url_for("home", view="register", register_role=registration_role))
             except Exception as db_error:
                   print("Error while registering account:", db_error)

@@ -32,7 +32,7 @@ def fetch_admin_login_account(email):
       recruita_db_connection = connect_recruita_database()
       try:
             return recruita_db_connection.execute(
-                  "SELECT admin_id, name, email, password_hash FROM admins WHERE email = ?",
+                  "SELECT admin_id, name, email, password FROM admins WHERE email = ?",
                   (email,),
             ).fetchone()
       finally:
@@ -43,7 +43,7 @@ def fetch_company_login_account(email):
       try:
             return recruita_db_connection.execute(
                   """
-                  SELECT company_id, company_name, email, password_hash, approval_status, is_active
+                  SELECT company_id, company_name, email, password, approval_status, is_active
                   FROM companies
                   WHERE email = ?
                   """,
@@ -57,7 +57,7 @@ def fetch_student_login_account(login_identifier):
       try:
             return recruita_db_connection.execute(
                   """
-                  SELECT student_id, full_name, roll_number, email, password_hash, is_active
+                  SELECT student_id, full_name, roll_number, email, password, is_active
                   FROM students
                   WHERE email = ? OR roll_number = ?
                   """,
@@ -73,7 +73,7 @@ def create_student_account(student_data):
                   """
                   INSERT INTO students (
                         full_name, roll_number, college, department, gpa, resume, phone,
-                        email, password_hash, is_active
+                        email, password, is_active
                   ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
                   """,
                   (
@@ -98,7 +98,7 @@ def create_company_account(company_data):
                   """
                   INSERT INTO companies (
                         company_name, website, hr_name, phone, email,
-                        password_hash, approval_status, is_active
+                        password, approval_status, is_active
                   ) VALUES (?, ?, ?, ?, ?, ?, 'Pending', 1)
                   """,
                   (

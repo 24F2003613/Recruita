@@ -122,11 +122,12 @@ def update_student_profile_details(student_id, profile_data):
             recruita_db_connection.execute(
                   """
                   UPDATE students
-                  SET full_name = ?, college = ?, department = ?, gpa = ?, resume = ?, phone = ?, email = ?
+                  SET full_name = ?, roll_number = ?, college = ?, department = ?, gpa = ?, resume = ?, phone = ?, email = ?
                   WHERE student_id = ?
                   """,
                   (
                         profile_data["full_name"],
+                        profile_data["roll_number"],
                         profile_data["college"],
                         profile_data["department"],
                         profile_data["gpa"],
