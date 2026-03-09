@@ -1,4 +1,4 @@
-# Recruita - Placement Portal
+# Recruita
 
 Recruita is a Flask + SQLite based placement portal with three roles:
 - Admin (predefined placement cell user)

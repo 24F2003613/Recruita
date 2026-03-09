@@ -89,10 +89,8 @@
       <div class="auth-shell">
          <div class="auth-brand d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
-               <h1 class="h4 mb-1">Recruita - Placement Portal</h1>
-               <p class="mb-0 small opacity-75">Institute placement access for Admin, Companies, and Students</p>
+               <h1 class="h4 mb-1">Recruita</h1>
             </div>
-            <span class="badge text-bg-light">{{ selected_auth_view|capitalize }}</span>
          </div>
 
 
@@ -109,7 +107,6 @@
             {% if selected_auth_view == 'register' %}
             <section>
                <h2 class="h5 mb-2">Create Account</h2>
-               <p class="section-note mb-3">Admin account is managed by placement cell. Register only as Student or Company.</p>
 
 
                <form action="{{ url_for('home') }}" method="get" class="row g-2 align-items-end mb-3">
@@ -216,7 +213,6 @@
             {% else %}
             <section>
                <h2 class="h5 mb-2">Login</h2>
-               <p class="section-note mb-3">Enter your email/username and password. Role is identified after validation.</p>
 
 
                <form action="{{ url_for('login') }}" method="post">
